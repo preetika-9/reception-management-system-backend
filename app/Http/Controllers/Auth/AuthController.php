@@ -12,13 +12,13 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'phone_number' => 'required|digits:10', // Ensure phone number is 10 digits
+            'mobile_number' => 'required|digits:10', // Ensure phone number is 10 digits
             'password' => 'required',             // Password is required
         ]);
 
-        $credentials = $request->only(['phone_number', 'password']);
+        $credentials = $request->only(['mobile_number', 'password']);
 
-        // Attempt to authenticate using phone_number and password
+        // Attempt to authenticate using mobile_number and password
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             $token = $user->createToken('auth_token')->plainTextToken;

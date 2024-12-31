@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->integer('phone_number')->unique();
+            $table->string('mobile_number')->unique()->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
@@ -23,7 +23,7 @@ return new class extends Migration
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             // $table->string('email')->primary();
-            $table->string('phone_number')->nullable()->unique();
+            $table->string('mobile_number')->nullable()->unique();
             $table->string('token');
             $table->timestamp('created_at')->nullable();
         });
