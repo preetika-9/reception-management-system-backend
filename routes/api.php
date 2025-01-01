@@ -24,3 +24,4 @@ Route::get('/user', function (Request $request) {
 // });
 
 YajTech\Crud\Helper\CrudRoute::generateRoutes('permission', App\Http\Controllers\PermissionController::class);
+YajTech\Crud\Helper\CrudRoute::generateRoutes('category', App\Http\Controllers\CategoryController::class);
