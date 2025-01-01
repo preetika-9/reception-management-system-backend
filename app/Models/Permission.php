@@ -95,7 +95,7 @@ class  Permission extends Model
 ;
     }
 
-    protected $fillable = [ 'name', 'created_by', 'updated_by', 'extra' ];
+    protected $fillable = [ 'name', 'guard_name', 'created_by', 'updated_by', 'extra' ];
 
     protected $casts = [
         'extra' => 'array'
