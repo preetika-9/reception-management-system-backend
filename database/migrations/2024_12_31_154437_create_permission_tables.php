@@ -24,18 +24,24 @@ return new class extends Migration
             throw new \Exception('Error: team_foreign_key on config/permission.php not loaded. Run [php artisan config:clear] and try again.');
         }
 
+        // Create permissions table
         Schema::create($tableNames['permissions'], function (Blueprint $table) {
-            //$table->engine('InnoDB');
             $table->bigIncrements('id'); // permission id
             $table->string('name');       // For MyISAM use string('name', 225); // (or 166 for InnoDB with Redundant/Compact row format)
             $table->string('guard_name'); // For MyISAM use string('guard_name', 25);
             $table->timestamps();
+            $table->softDeletes();  // Added to support soft deletes with 'deleted_at' column
+
+            // Add the 'created_by' column (assuming it should be an unsigned big integer)
+            $table->unsignedBigInteger('created_by')->nullable(); // nullable in case it's optional
+            // Optionally, you can add a foreign key reference to a users table, assuming that's where the user IDs are stored.
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
 
             $table->unique(['name', 'guard_name']);
         });
 
+        // Create roles table
         Schema::create($tableNames['roles'], function (Blueprint $table) use ($teams, $columnNames) {
-            //$table->engine('InnoDB');
             $table->bigIncrements('id'); // role id
             if ($teams || config('permission.testing')) { // permission.testing is a fix for sqlite testing
                 $table->unsignedBigInteger($columnNames['team_foreign_key'])->nullable();
@@ -51,9 +57,9 @@ return new class extends Migration
             }
         });
 
+        // Create model_has_permissions table
         Schema::create($tableNames['model_has_permissions'], function (Blueprint $table) use ($tableNames, $columnNames, $pivotPermission, $teams) {
             $table->unsignedBigInteger($pivotPermission);
-
             $table->string('model_type');
             $table->unsignedBigInteger($columnNames['model_morph_key']);
             $table->index([$columnNames['model_morph_key'], 'model_type'], 'model_has_permissions_model_id_model_type_index');
@@ -65,19 +71,17 @@ return new class extends Migration
             if ($teams) {
                 $table->unsignedBigInteger($columnNames['team_foreign_key']);
                 $table->index($columnNames['team_foreign_key'], 'model_has_permissions_team_foreign_key_index');
-
                 $table->primary([$columnNames['team_foreign_key'], $pivotPermission, $columnNames['model_morph_key'], 'model_type'],
                     'model_has_permissions_permission_model_type_primary');
             } else {
                 $table->primary([$pivotPermission, $columnNames['model_morph_key'], 'model_type'],
                     'model_has_permissions_permission_model_type_primary');
             }
-
         });
 
+        // Create model_has_roles table
         Schema::create($tableNames['model_has_roles'], function (Blueprint $table) use ($tableNames, $columnNames, $pivotRole, $teams) {
             $table->unsignedBigInteger($pivotRole);
-
             $table->string('model_type');
             $table->unsignedBigInteger($columnNames['model_morph_key']);
             $table->index([$columnNames['model_morph_key'], 'model_type'], 'model_has_roles_model_id_model_type_index');
@@ -89,7 +93,6 @@ return new class extends Migration
             if ($teams) {
                 $table->unsignedBigInteger($columnNames['team_foreign_key']);
                 $table->index($columnNames['team_foreign_key'], 'model_has_roles_team_foreign_key_index');
-
                 $table->primary([$columnNames['team_foreign_key'], $pivotRole, $columnNames['model_morph_key'], 'model_type'],
                     'model_has_roles_role_model_type_primary');
             } else {
@@ -98,6 +101,7 @@ return new class extends Migration
             }
         });
 
+        // Create role_has_permissions table
         Schema::create($tableNames['role_has_permissions'], function (Blueprint $table) use ($tableNames, $pivotRole, $pivotPermission) {
             $table->unsignedBigInteger($pivotPermission);
             $table->unsignedBigInteger($pivotRole);

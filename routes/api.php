@@ -22,3 +22,5 @@ Route::get('/user', function (Request $request) {
 //         return 'Manage Users Area';
 //     });
 // });
+
+YajTech\Crud\Helper\CrudRoute::generateRoutes('permission', App\Http\Controllers\PermissionController::class);
