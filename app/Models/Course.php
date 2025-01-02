@@ -30,7 +30,7 @@ class  Course extends Model
         'type' => 'text',
         'sortable' => false,
         ],
-[
+        [
         'name' => 'category',
         'label' => 'Category',
         'type' => 'relation',
