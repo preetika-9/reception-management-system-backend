@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use YajTech\Crud\Traits\CrudModel;
 use YajTech\Crud\Traits\CrudEventListener;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class  Category extends Model
+class  Course extends Model
 {
     use HasFactory, CrudModel, SoftDeletes, CrudEventListener;
 
@@ -29,6 +30,16 @@ class  Category extends Model
         'type' => 'text',
         'sortable' => false,
         ],
+[
+        'name' => 'category',
+        'label' => 'Category',
+        'type' => 'relation',
+        'relation_map' => ['category', 'name'],
+        'simple_resource_field' => ['id', 'name'],
+        'align' => 'left',
+        'sortable' => false,
+        ],
+
     ]
 ;
     }
@@ -40,6 +51,20 @@ class  Category extends Model
         'name' => 'name',
         'label' => 'Name',
         'type' => 'text',
+        'wrapper' => [
+            'class' => 'col-6',
+            ],
+        'rules' => [
+            'required' => true,
+            ],
+        ],
+        [
+        'name' => 'category_id',
+        'type' => 'select_from_model',
+        'label' => ' Category',
+        'attribute' => 'name',
+        'columns' => ['id', 'name'],
+        'model' => "App\Models\Category",
         'wrapper' => [
             'class' => 'col-6',
             ],
@@ -65,12 +90,23 @@ class  Category extends Model
     {
        return [
         // [
-        // 'name' => '',
-        // 'column' => '',
+        // 'name' => 'name',
+        // 'column' => 'name',
         // 'type' => 'text',
         // 'relation' => 'where',
         // 'dense' => true,
-        // 'label' => '',
+        // 'label' => 'Name',
+        // 'wrapper' => [
+        //     'class' => 'col-3',
+        //     ],
+        // ],
+        // [
+        // 'name' => ' category_id',
+        // 'column' => ' category_id',
+        // 'type' => 'text',
+        // 'relation' => 'where',
+        // 'dense' => true,
+        // 'label' => ' Category',
         // 'wrapper' => [
         //     'class' => 'col-3',
         //     ],
@@ -78,9 +114,14 @@ class  Category extends Model
     ];
     }
 
-    protected $fillable = ['name', 'created_by', 'updated_by', 'extra' ];
+    protected $fillable = [ 'name', ' category_id', 'updated_by', 'extra' ];
 
     protected $casts = [
         'extra' => 'array'
     ];
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
