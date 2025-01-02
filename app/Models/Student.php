@@ -183,17 +183,17 @@ class  Student extends Model
     public static function getFilters(): array
     {
        return [
-    // [
-    //     'name' => '',
-    //     'column' => '',
-    //     'type' => 'text',
-    //     'relation' => 'where',
-    //     'dense' => true,
-    //     'label' => '',
-    //     'wrapper' => [
-    //         'class' => 'col-3',
-    //         ],
-    //     ],
+    [
+        'name' => 'category_id',
+        'column' => 'name',
+        'type' => 'text',
+        'relation' => 'where',
+        'dense' => true,
+        'label' => 'Category',
+        'wrapper' => [
+            'class' => 'col-3',
+            ],
+        ],
     ];
     }
 
