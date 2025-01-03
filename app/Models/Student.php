@@ -185,7 +185,7 @@ class  Student extends Model
        return [
     [
         'name' => 'category_id',
-        'column' => 'name',
+        'column' => 'category_id',
         'type' => 'text',
         'relation' => 'where',
         'dense' => true,

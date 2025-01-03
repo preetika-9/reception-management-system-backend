@@ -61,7 +61,7 @@ class  Course extends Model
         [
         'name' => 'category_id',
         'type' => 'select_from_model',
-        'label' => ' Category',
+        'label' => 'Category',
         'attribute' => 'name',
         'columns' => ['id', 'name'],
         'model' => "App\Models\Category",
