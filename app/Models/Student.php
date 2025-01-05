@@ -182,19 +182,23 @@ class  Student extends Model
 
     public static function getFilters(): array
     {
-       return [
-    [
-        'name' => 'category_id',
-        'column' => 'category_id',
-        'type' => 'text',
-        'relation' => 'where',
-        'dense' => true,
-        'label' => 'Category',
-        'wrapper' => [
-            'class' => 'col-3',
+        return [
+            [
+                'name' => 'category_id',
+                'column' => 'category_id',
+                'type' => 'select_from_model',
+                // 'type' => 'text',
+                'relation' => 'where',
+                'dense' => true,
+                'model' => "App\Models\Category",
+                'label' => 'Category',
+                'attribute' => 'name',
+                'columns' => ['id', 'name'],
+                'wrapper' => [
+                    'class' => 'col-3',
+                ],
             ],
-        ],
-    ];
+        ];
     }
 
     protected $fillable = [ 'name', 'phone', 'email', 'address','category_id', 'course_id', 'remarks' ,'extra' ];
@@ -212,4 +216,14 @@ class  Student extends Model
     {
         return $this->belongsTo(Course::class);
     }
+
+    public static function filterQuery($query)
+{
+    if (request()->has('category_id')) {
+        $query->where('category_id', request()->input('category_id'));
+    }
+
+    return $query;
+}
+
 }
