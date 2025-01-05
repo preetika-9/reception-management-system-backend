@@ -182,6 +182,17 @@ class  Student extends Model
     {
         return [
             [
+                'name' => 'name',
+                'column' => 'name',
+                'type' => 'text',
+                'relation' => 'where',
+                'dense' => true,
+                'label' => 'Search Student',
+                'wrapper' => [
+                    'class' => 'col-3',
+                ],
+            ],
+            [
                 'name' => 'category_id',
                 'column' => 'category_id',
                 'type' => 'select_from_model',

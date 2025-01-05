@@ -89,6 +89,18 @@ class  Course extends Model
     public static function getFilters(): array
     {
        return [
+        [
+            'name' => 'name',
+            'column' => 'name',
+            'type' => 'text',
+            'relation' => 'where',
+            'dense' => true,
+            'label' => 'Search Course',
+            'wrapper' => [
+                'class' => 'col-3',
+            ],
+        ],
+
             [
                 'name' => 'category_id',
                 'column' => 'category_id',

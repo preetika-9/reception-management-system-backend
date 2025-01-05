@@ -64,17 +64,17 @@ class  Category extends Model
     public static function getFilters(): array
     {
        return [
-        // [
-        // 'name' => '',
-        // 'column' => '',
-        // 'type' => 'text',
-        // 'relation' => 'where',
-        // 'dense' => true,
-        // 'label' => '',
-        // 'wrapper' => [
-        //     'class' => 'col-3',
-        //     ],
-        // ],
+        [
+            'name' => 'name',
+            'column' => 'name',
+            'type' => 'text',
+            'relation' => 'where',
+            'dense' => true,
+            'label' => 'Search Category',
+            'wrapper' => [
+                'class' => 'col-3',
+            ],
+        ],
     ];
     }
 
