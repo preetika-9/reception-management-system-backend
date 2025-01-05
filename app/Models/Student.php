@@ -173,7 +173,7 @@ class  Student extends Model
        return [
              'add_button' => true,
              'refresh_button' => true,
-            //  'export_button' => true,
+             'export_button' => true,
              'filter_button' => true,
        ];
     }
@@ -188,6 +188,17 @@ class  Student extends Model
                 'relation' => 'where',
                 'dense' => true,
                 'label' => 'Search Student',
+                'wrapper' => [
+                    'class' => 'col-3',
+                ],
+            ],
+            [
+                'name' => 'phone',
+                'column' => 'phone',
+                'type' => 'text',
+                'relation' => 'where',
+                'dense' => true,
+                'label' => 'Search Phone',
                 'wrapper' => [
                     'class' => 'col-3',
                 ],

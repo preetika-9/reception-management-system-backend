@@ -72,8 +72,7 @@ class  Course extends Model
                 'required' => true,
                 ],
             ],
-    ]
-;
+    ];
     }
 
     public static function getTableMetas(): array

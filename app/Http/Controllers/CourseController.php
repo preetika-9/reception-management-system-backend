@@ -11,10 +11,6 @@ use App\Http\Requests\CourseUpdateRequest;
 
 class CourseController extends CrudController
 {
-    public array $withAll = [
-      'category'
-    ];
-
     public function __construct()
     {
         parent::__construct(
