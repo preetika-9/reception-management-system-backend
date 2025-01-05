@@ -119,7 +119,7 @@ class  Course extends Model
     }
 
 
-    protected $fillable = [ 'name', ' category_id', 'updated_by', 'extra' ];
+    protected $fillable = [ 'name', 'category_id', 'updated_by', 'extra' ];
 
     protected $casts = [
         'extra' => 'array'

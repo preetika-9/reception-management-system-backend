@@ -56,6 +56,15 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
         ],
+        // 'minio' => [
+        //     'driver' => 's3',
+        //     'endpoint' => env('MINIO_ENDPOINT', 'https://cdn.sociair.com'),
+        //     'use_path_style_endpoint' => true,
+        //     'key' => env('AWS_KEY'),
+        //     'secret' => env('AWS_SECRET'),
+        //     'region' => env('AWS_REGION', 'us-east-1'),
+        //     'bucket' => env('AWS_BUCKET'),
+        // ],
 
     ],
 
