@@ -76,9 +76,7 @@ class  Student extends Model
              'type' => 'text',
              'sortable' => false,
              ],
-
-    ]
-;
+    ];
     }
 
     public static function getFields(): array

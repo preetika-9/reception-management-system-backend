@@ -59,19 +59,19 @@ class  Course extends Model
             ],
         ],
         [
-        'name' => 'category_id',
-        'type' => 'select_from_model',
-        'label' => 'Category',
-        'attribute' => 'name',
-        'columns' => ['id', 'name'],
-        'model' => "App\Models\Category",
-        'wrapper' => [
-            'class' => 'col-6',
+            'name' => 'category_id',
+            'type' => 'select_from_model',
+            'label' => 'Category',
+            'attribute' => 'name',
+            'columns' => ['id', 'name'],
+            'model' => "App\Models\Category",
+            'wrapper' => [
+                'class' => 'col-6',
+                ],
+            'rules' => [
+                'required' => true,
+                ],
             ],
-        'rules' => [
-            'required' => true,
-            ],
-        ],
     ]
 ;
     }
@@ -89,30 +89,24 @@ class  Course extends Model
     public static function getFilters(): array
     {
        return [
-        // [
-        // 'name' => 'name',
-        // 'column' => 'name',
-        // 'type' => 'text',
-        // 'relation' => 'where',
-        // 'dense' => true,
-        // 'label' => 'Name',
-        // 'wrapper' => [
-        //     'class' => 'col-3',
-        //     ],
-        // ],
-        // [
-        // 'name' => ' category_id',
-        // 'column' => ' category_id',
-        // 'type' => 'text',
-        // 'relation' => 'where',
-        // 'dense' => true,
-        // 'label' => ' Category',
-        // 'wrapper' => [
-        //     'class' => 'col-3',
-        //     ],
-        // ],
-    ];
+            [
+                'name' => 'category_id',
+                'column' => 'category_id',
+                'type' => 'select_from_model',
+                // 'type' => 'text',
+                'relation' => 'where',
+                'dense' => true,
+                'model' => "App\Models\Category",
+                'label' => 'Category',
+                'attribute' => 'name',
+                'columns' => ['id', 'name'],
+                'wrapper' => [
+                    'class' => 'col-3',
+                ],
+            ],
+        ];
     }
+
 
     protected $fillable = [ 'name', ' category_id', 'updated_by', 'extra' ];
 
